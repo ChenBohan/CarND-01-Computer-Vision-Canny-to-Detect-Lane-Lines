@@ -50,7 +50,25 @@ fit_bottom = np.polyfit((left_bottom[0], right_bottom[0]), (left_bottom[1], righ
 
 First, convert the image to grayscale.
 
+```python
+gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+```
+
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Canny%20Edge%20Detection2.png" width = "60%" height = "60%" div align=center />
+
+Then, apply ``Canny`` to the gray image.
+
+```python
+edges = cv2.Canny(gray, low_threshold, high_threshold)
+```
+
+The algorithm will first detect strong edge (strong gradient) pixels above the ``high_threshold``, and reject pixels below the ``low_threshold``. 
+
+Next, pixels with values between the ``low_threshold`` and ``high_threshold`` will be included as long as they are connected to strong edges.
+
+Tip: As far as a ratio of ``low_threshold`` to ``high_threshold``, John Canny himself recommended a low to high ratio of 1:2 or 1:3.
+
+Ref: [OpenCV Canny Docs](http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny_detector/canny_detector.html)
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Canny%20Edge%20Detection1.png" width = "60%" height = "60%" div align=center />
 
