@@ -1,4 +1,4 @@
-# AI-CV-01-Canny-to-Detect-Lane-Lines
+# AI-Computer-Vision-01-Canny-to-Detect-Lane-Lines
 
 ## Color Selection
 
