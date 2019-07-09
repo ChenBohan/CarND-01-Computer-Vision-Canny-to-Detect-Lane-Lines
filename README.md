@@ -4,7 +4,10 @@
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/test.jpg" width = "60%" height = "60%" div align=center />
 
-I define a color threshold in the variables ``red_threshold``, ``green_threshold``, and ``blue_threshold``.
+1. Define a color threshold in the variables ``red_threshold``, ``green_threshold``, and ``blue_threshold``.
+2. Select any pixels below the threshold and set them to zero.
+
+After that, all pixels that meet my color criterion (those above the threshold) will be retained, and those that do not (below the threshold) will be blacked out.
 
 ```python
 red_threshold = 200
@@ -16,10 +19,6 @@ thresholds = (image[:,:,0] < rgb_threshold[0]) \
             | (image[:,:,2] < rgb_threshold[2])
 color_select[thresholds] = [0,0,0]
 ```
-
-Next, I'll select any pixels below the threshold and set them to zero.
-
-After that, all pixels that meet my color criterion (those above the threshold) will be retained, and those that do not (below the threshold) will be blacked out.
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/test-after.jpg" width = "60%" height = "60%" div align=center />
 
