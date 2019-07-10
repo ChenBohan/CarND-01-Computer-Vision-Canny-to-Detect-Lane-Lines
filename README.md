@@ -1,5 +1,9 @@
 # AI-Computer-Vision-01-Canny-to-Detect-Lane-Lines
 
+1. Color Selection
+2. Region Selection
+3. Canny to Detect Lane Lines
+
 ## Color Selection
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/test.jpg" width = "60%" height = "60%" div align=center />
@@ -26,7 +30,7 @@ color_select[thresholds] = [0,0,0]
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/test-after.jpg" width = "60%" height = "60%" div align=center />
 
-## Region Masking
+## Region Selection
 
 Assume that the front facing camera that took the image is mounted in a fixed position on the car, such that the lane lines will always appear in the same general region of the image.
 
@@ -35,16 +39,20 @@ Assume that the front facing camera that took the image is mounted in a fixed po
 The variables ``left_bottom``, ``right_bottom``, and ``apex`` represent the vertices of a triangular region that I would like to retain for my color selection, while masking everything else out. 
 
 ```python
-# Define a triangle region of interest 
+# Define a triangle region of interest (Note: if you run this code, 
+# Keep in mind the origin (x=0, y=0) is in the upper left in image processing
 left_bottom = [0, 717]
 right_bottom = [1276, 717]
 apex = [650, 440]
 
-# Fit lines (y=Ax+B) to identify the 3 sided region of interest
-# np.polyfit() returns the coefficients [A, B] of the fit
 fit_left = np.polyfit((left_bottom[0], apex[0]), (left_bottom[1], apex[1]), 1)
 fit_right = np.polyfit((right_bottom[0], apex[0]), (right_bottom[1], apex[1]), 1)
 fit_bottom = np.polyfit((left_bottom[0], right_bottom[0]), (left_bottom[1], right_bottom[1]), 1)
+
+# Mask pixels below the threshold
+color_thresholds = (image[:,:,0] < rgb_threshold[0]) | \
+                    (image[:,:,1] < rgb_threshold[1]) | \
+                    (image[:,:,2] < rgb_threshold[2])
 
 # Find the region inside the lines
 XX, YY = np.meshgrid(np.arange(0, xsize), np.arange(0, ysize))
