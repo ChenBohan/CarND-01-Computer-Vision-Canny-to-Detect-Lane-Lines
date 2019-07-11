@@ -3,6 +3,8 @@
 1. Color Selection
 2. Region Selection
 3. Canny to Detect Lane Lines
+3.1. Canny
+3.2. Gaussian smoothing
 
 ## Color Selection
 
