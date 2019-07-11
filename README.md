@@ -67,27 +67,58 @@ region_thresholds = (YY > (XX*fit_left[0] + fit_left[1])) & \
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/exit-ramp.jpg" width = "60%" height = "60%" div align=center />
 
-First, convert the image to grayscale.
+1. Convert the image to grayscale.
 
 ```python
-gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+# Grayscale conversion
+gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)
 ```
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Canny%20Edge%20Detection2.png" width = "60%" height = "60%" div align=center />
 
-Then, apply ``Canny`` to the gray image.
+2. Apply ``Canny`` to the gray image.
 
 ```python
-edges = cv2.Canny(gray, low_threshold, high_threshold)
+# Define our parameters for Canny and run it
+low_threshold = 100
+high_threshold = 200
+edges = cv2.Canny(blur_gray, low_threshold, high_threshold)
 ```
 
-The algorithm will first detect strong edge (strong gradient) pixels above the ``high_threshold``, and reject pixels below the ``low_threshold``. 
+**Canny**
 
-Next, pixels with values between the ``low_threshold`` and ``high_threshold`` will be included as long as they are connected to strong edges.
+1. Detect strong edge (strong gradient) pixels above the ``high_threshold``, and reject pixels below the ``low_threshold``. 
 
-Tip: As far as a ratio of ``low_threshold`` to ``high_threshold``, John Canny himself recommended a low to high ratio of 1:2 or 1:3.
+2. Pixels with values between the ``low_threshold`` and ``high_threshold`` will be included as long as they are connected to strong edges.
+
+3. The output edges is a binary image with white pixels tracing out the detected edges and black everywhere else. 
+
+Hints:
+
+- In our case, converting to grayscale has left us with an 8-bit image, so each pixel can take 2^8 = 256 possible values. Hence, the pixel values range from 0 to 255. 
+
+- This range implies that derivatives (essentially, the value differences from pixel to pixel) will be on the scale of tens or hundreds.
+
+- As far as a ratio of ``low_threshold`` to ``high_threshold``, John Canny himself recommended a low to high ratio of 1:2 or 1:3.
 
 Ref: [OpenCV Canny Docs](http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny_detector/canny_detector.html)
+
+**Gaussian smoothing**
+
+Before running Canny, which is essentially a way of suppressing noise and spurious gradients by averaging.
+
+``cv2.Canny()`` actually applies Gaussian smoothing internally, but we include it here because you can get a different result by applying further smoothing (and it's not a changeable parameter within ``cv2.Canny()``!). 
+
+You can choose the ``kernel_size`` for Gaussian smoothing to be any odd number. 
+
+A larger kernel_size implies averaging, or smoothing, over a larger area.
+
+```python
+# Define a kernel size for Gaussian smoothing / blurring
+# Note: this step is optional as cv2.Canny() applies a 5x5 Gaussian internally
+kernel_size = 3 # Must be an odd number (3, 5, 7...)
+blur_gray = cv2.GaussianBlur(gray,(kernel_size, kernel_size),0)
+```
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Canny%20Edge%20Detection1.png" width = "60%" height = "60%" div align=center />
 
