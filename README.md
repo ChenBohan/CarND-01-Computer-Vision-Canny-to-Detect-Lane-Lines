@@ -105,13 +105,11 @@ Ref: [OpenCV Canny Docs](http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtra
 
 **Gaussian smoothing**
 
-Before running Canny, which is essentially a way of suppressing noise and spurious gradients by averaging.
+- Before running Canny, which is essentially a way of suppressing noise and spurious gradients by averaging.
 
-``cv2.Canny()`` actually applies Gaussian smoothing internally, but we include it here because you can get a different result by applying further smoothing (and it's not a changeable parameter within ``cv2.Canny()``!). 
+- ``cv2.Canny()`` actually applies Gaussian smoothing internally, but we include it here because you can get a different result by applying further smoothing (and it's not a changeable parameter within ``cv2.Canny()``!). 
 
-You can choose the ``kernel_size`` for Gaussian smoothing to be any odd number. 
-
-A larger kernel_size implies averaging, or smoothing, over a larger area.
+- You can choose the ``kernel_size`` for Gaussian smoothing to be any odd number. A larger kernel_size implies averaging, or smoothing, over a larger area.
 
 ```python
 # Define a kernel size for Gaussian smoothing / blurring
