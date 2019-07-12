@@ -126,11 +126,11 @@ blur_gray = cv2.GaussianBlur(gray,(kernel_size, kernel_size),0)
 
 ## Using the Hough Transform to Find Lines from Canny Edges
 
-To do this, we'll be using an OpenCV function called ``HoughLinesP``
+- The Hough transform is a conversion from image space to Hough space.
 
-```python
-edges = cv2.Canny(gray, low_threshold, high_threshold)
-```
+- In Hough space, I can represent my "x vs. y" line as a point in "m vs. b" instead.
+
+- So the characterization of a line in image space will be a single point at the position m-b in Hough space.
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform1.png" width = "60%" height = "60%" div align=center />
 
@@ -139,3 +139,9 @@ edges = cv2.Canny(gray, low_threshold, high_threshold)
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform3.png" width = "60%" height = "60%" div align=center />
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/lines_edges.jpg" width = "60%" height = "60%" div align=center />
+
+To do this, we'll be using an OpenCV function called ``HoughLinesP``
+
+```python
+edges = cv2.Canny(gray, low_threshold, high_threshold)
+```
