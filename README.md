@@ -134,11 +134,20 @@ blur_gray = cv2.GaussianBlur(gray,(kernel_size, kernel_size),0)
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform1.png" width = "60%" height = "60%" div align=center />
 
+So our strategy to find lines in image space will be **look for intersecting lines in Hough space**.
+
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform2.png" width = "60%" height = "60%" div align=center />
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform3.png" width = "60%" height = "60%" div align=center />
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/lines_edges.jpg" width = "60%" height = "60%" div align=center />
+
+1. Run the canny edge detection algorithm to find all points associated with edges.
+
+    1. Consider every point as a line in Hough space.
+    
+2. Found a collection of points that describe a line in image space where many lines in Hough space intersect, 
+
 
 To do this, we'll be using an OpenCV function called ``HoughLinesP``
 
