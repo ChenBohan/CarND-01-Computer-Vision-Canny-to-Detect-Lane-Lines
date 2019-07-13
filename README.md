@@ -173,9 +173,9 @@ Ref: [Understanding Hough Transform With Python](https://alyssaq.github.io/2014/
 # Make a blank the same size as our image to draw on
 rho = 2                 # distance resolution in pixels of the Hough grid
 theta = np.pi/180       # angular resolution in radians of the Hough grid
-threshold = 150         # minimum number of votes (intersections in Hough grid cell)
-min_line_length = 100   # minimum number of pixels making up a line
-max_line_gap = 5        # maximum gap in pixels between connectable line segments
+threshold = 15          # minimum number of votes (intersections in Hough grid cell)
+min_line_length = 40    # minimum number of pixels making up a line
+max_line_gap = 20       # maximum gap in pixels between connectable line segments
 line_image = np.copy(image)*0   # creating a blank to draw lines on
 
 # Run Hough on edge detected image
