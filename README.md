@@ -156,15 +156,40 @@ So our strategy to find lines in image space will be **look for intersecting lin
         
         1. the intersection of those sine curves in θ-ρ space gives the parameterization of the line.
         
+Ref: [Hough transform(霍夫变换)](https://www.cnblogs.com/AndyJee/p/3805594.html)
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform2.png" width = "60%" height = "60%" div align=center />
 
 <img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/readme.img/Hough%20Transform3.png" width = "60%" height = "60%" div align=center />
 
-<img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/lines_edges.jpg" width = "60%" height = "60%" div align=center />
 
 To do this, we'll be using an OpenCV function called ``HoughLinesP``
 
+Ref: [Understanding Hough Transform With Python](https://alyssaq.github.io/2014/understanding-hough-transform/)
+
 ```python
-edges = cv2.Canny(gray, low_threshold, high_threshold)
+# Define the Hough transform parameters
+# Make a blank the same size as our image to draw on
+rho = 1
+theta = np.pi/180
+threshold = 1
+min_line_length = 10
+max_line_gap = 1
+line_image = np.copy(image)*0 #creating a blank to draw lines on
+
+# Run Hough on edge detected image
+lines = cv2.HoughLinesP(masked_edges, rho, theta, threshold, np.array([]),
+                            min_line_length, max_line_gap)
 ```
+
+- `masked_edges` - the output from Canny
+- `rho`, `theta` - the distance and angular resolution of our grid in Hough space
+    - `rho` takes a minimum value of 1, and a reasonable starting place for `theta` is 1 degree (pi/180 in radians). 
+    - Scale these values up to be more flexible in your definition of what constitutes a line. 
+- `threshold` - the minimum number of votes (intersections in a given grid cell) a candidate line needs to have
+- `np.array([])` - a placeholder, no need to change it.
+- `min_line_length` - the minimum length of a line (in pixels)
+- `max_line_gap` - the maximum distance (in pixels) between segments
+- `lines` - an array containing the endpoints (x1, y1, x2, y2) of all line segments
+
+<img src="https://github.com/ChenBohan/AI-CV-01-Canny-to-Detect-Lane-Lines/blob/master/lines_edges.jpg" width = "60%" height = "60%" div align=center />
